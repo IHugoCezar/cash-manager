@@ -1,0 +1,35 @@
+<ul>
+    {% for wallet in wallets %}
+        <li>{{ wallet.moeda }} - {{ wallet.saldo }}
+            <a href="{{ wallet.pk }}/editar/">Editar</a>
+            <a href="{{ wallet.pk }}/deletar/">Deletar</a>
+        </li>
+    {% endfor %}
+</ul>
+<a href="novo/">Adicionar Nova Carteira</a>
+
+<h2>Wallets</h2>
+
+<table border="1">
+    <tr>
+        <th>User</th>
+        <th>Original Balance</th>
+        <th>Currency</th>
+        <th>USD</th>
+        <th>EUR</th>
+        <th>BRL</th>
+    </tr>
+
+    {% for wallet in converted_wallets %}
+        <tr>
+            <td>{{ wallet.user.username }}</td>
+            <td>{{ wallet.saldo_original }}</td>
+            <td>{{ wallet.moeda }}</td>
+            <td>${{ wallet.saldo_usd }}</td>
+            <td>€{{ wallet.saldo_eur }}</td>
+            <td>R${{ wallet.saldo_brl }}</td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="6">Carteiras não encontradas.</td></tr>
+    {% endfor %}
+</table>
