@@ -1,0 +1,25 @@
+# Use official Python image
+FROM python:3.11
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the requirements file
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy all source code to the container
+COPY . .
+
+# Expose the default Django port
+EXPOSE 8000
+
+# Set environment variables from .env file
+RUN pip install python-dotenv
+ENV PYTHONUNBUFFERED 1
+
+# Entry command to start the Django app
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "manager.wsgi:application"]
+
